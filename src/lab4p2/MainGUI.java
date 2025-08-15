@@ -8,7 +8,7 @@ package lab4p2;
  *
  * @author ljmc2
  */
-public class Lab4P2 {
+public class MainGUI {
 
     /**
      * @param args the command line arguments
