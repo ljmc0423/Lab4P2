@@ -10,6 +10,8 @@ package lab4p2;
  * @author ljmc2
  */
 public interface JuegoAhorcado {
+
     void inicializarPalabraSecreta();
+
     void jugar();
 }

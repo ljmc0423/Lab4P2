@@ -4,15 +4,14 @@
  */
 package lab4p2;
 
-
 import java.util.Scanner;
 
 /**
  *
  * @author ljmc2
  */
-
 public class JuegoAhorcadoFijo extends JuegoAhorcadoBase {
+
     private String palabra;
 
     public JuegoAhorcadoFijo(String palabra) {

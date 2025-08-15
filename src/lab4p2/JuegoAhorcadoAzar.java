@@ -10,8 +10,8 @@ import java.util.Scanner;
  *
  * @author Mayra Bardales
  */
-
 public class JuegoAhorcadoAzar extends JuegoAhorcadoBase {
+
     private AdminPalabrasSecretas admin;
 
     public JuegoAhorcadoAzar(AdminPalabrasSecretas admin) {
@@ -21,7 +21,9 @@ public class JuegoAhorcadoAzar extends JuegoAhorcadoBase {
     @Override
     public void inicializarPalabraSecreta() {
         palabraSecreta = admin.obtenerPalabraAzar();
-        if (palabraSecreta == null) palabraSecreta = "VACIO";
+        if (palabraSecreta == null) {
+            palabraSecreta = "VACIO";
+        }
         palabraActual = "_".repeat(palabraSecreta.length());
     }
 

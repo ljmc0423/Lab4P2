@@ -11,14 +11,13 @@ import java.util.ArrayList;
  * @author Mayra Bardales
  */
 public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
+
     protected String palabraSecreta;
     protected String palabraActual;
     protected int intentos;
     protected final int limiteIntentos = 6;
     protected ArrayList<Character> letrasUsadas;
     protected ArrayList<String> figuraAhorcado;//personaje se guarda en arraylist
-    
-  
 
     public JuegoAhorcadoBase() {
         letrasUsadas = new ArrayList<>();
@@ -28,13 +27,48 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
     }
 
     private void inicializarFigura() {
-        figuraAhorcado.add(" +---+\n     |\n     |\n     |\n    ===");
-        figuraAhorcado.add(" +---+\n O   |\n     |\n     |\n    ===");
-        figuraAhorcado.add(" +---+\n O   |\n |   |\n     |\n    ===");
-        figuraAhorcado.add(" +---+\n O   |\n/|   |\n     |\n    ===");
-        figuraAhorcado.add(" +---+\n O   |\n/|\\  |\n     |\n    ===");
-        figuraAhorcado.add(" +---+\n O   |\n/|\\  |\n/    |\n    ===");
-        figuraAhorcado.add(" +---+\n O   |\n/|\\  |\n/ \\  |\n    ===");
+        String espacio = "                                                                               ";
+        figuraAhorcado.add(espacio + "+---+\n"
+                + espacio + "      |\n"
+                + espacio + "      |\n"
+                + espacio + "      |\n"
+                + espacio + "     ===");
+
+        figuraAhorcado.add(espacio + "+---+\n"
+                + espacio + "O   |\n"
+                + espacio + "      |\n"
+                + espacio + "      |\n"
+                + espacio + "     ===");
+
+        figuraAhorcado.add(espacio + "+---+\n"
+                + espacio + "O   |\n"
+                + espacio + " |   |\n"
+                + espacio + "     |\n"
+                + espacio + "    ===");
+
+        figuraAhorcado.add(espacio + "+---+\n"
+                + espacio + "O   |\n"
+                + espacio + "/|   |\n"
+                + espacio + "     |\n"
+                + espacio + "    ===");
+
+        figuraAhorcado.add(espacio + "+---+\n"
+                + espacio + "O   |\n"
+                + espacio + "/|\\  |\n"
+                + espacio + "     |\n"
+                + espacio + "    ===");
+
+        figuraAhorcado.add(espacio + "+---+\n"
+                + espacio + "O   |\n"
+                + espacio + "/|\\  |\n"
+                + espacio + "/    |\n"
+                + espacio + "    ===");
+
+        figuraAhorcado.add(espacio + "+---+\n"
+                + espacio + "O   |\n"
+                + espacio + "/|\\  |\n"
+                + espacio + "/ \\  |\n"
+                + espacio + "    ===");
     }
 
     public void mostrarFigura() {
@@ -52,6 +86,8 @@ public abstract class JuegoAhorcadoBase implements JuegoAhorcado {
     }
 
     public abstract void actualizarPalabraActual(char letra);
+
     public abstract boolean verificarLetra(char letra);
+
     public abstract boolean hasGanado();
 }

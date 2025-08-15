@@ -12,8 +12,8 @@ import java.util.Random;
  *
  * @author ljmc2
  */
-
 public class AdminPalabrasSecretas {
+
     private ArrayList<String> palabras;
 
     public AdminPalabrasSecretas() {
@@ -33,7 +33,9 @@ public class AdminPalabrasSecretas {
     }
 
     public String obtenerPalabraAzar() {
-        if (palabras.isEmpty()) return null;
+        if (palabras.isEmpty()) {
+            return null;
+        }
         Random rnd = new Random();
         return palabras.get(rnd.nextInt(palabras.size()));
     }
