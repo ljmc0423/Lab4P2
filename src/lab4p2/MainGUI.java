@@ -16,12 +16,14 @@ import javax.swing.text.BadLocationException;
  *
  * @author ljmc2
  */
-
 class LetterOnlyFilter extends DocumentFilter {
+
     @Override
     public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
             throws BadLocationException {
-        if (string == null) return;
+        if (string == null) {
+            return;
+        }
         if (isLetter(string) && (fb.getDocument().getLength() + string.length()) <= 1) {
             super.insertString(fb, offset, string.toUpperCase(), attr);
         }
@@ -30,7 +32,9 @@ class LetterOnlyFilter extends DocumentFilter {
     @Override
     public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
             throws BadLocationException {
-        if (text == null) return;
+        if (text == null) {
+            return;
+        }
         if (isLetter(text) && text.length() <= 1) {
             fb.remove(0, fb.getDocument().getLength());
             super.insertString(fb, 0, text.toUpperCase(), attrs);
@@ -39,6 +43,35 @@ class LetterOnlyFilter extends DocumentFilter {
 
     private boolean isLetter(String text) {
         return text.matches("[a-zA-Z]");
+    }
+}
+
+class MultiLetterOnlyFilter extends DocumentFilter {
+
+    @Override
+    public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
+            throws BadLocationException {
+        if (string == null) {
+            return;
+        }
+        if (isAllLetters(string)) {
+            super.insertString(fb, offset, string.toUpperCase(), attr);
+        }
+    }
+
+    @Override
+    public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
+            throws BadLocationException {
+        if (text == null) {
+            return;
+        }
+        if (isAllLetters(text)) {
+            super.replace(fb, offset, length, text.toUpperCase(), attrs);
+        }
+    }
+
+    private boolean isAllLetters(String text) {
+        return text.matches("[a-zA-Z]+");
     }
 }
 
@@ -51,7 +84,7 @@ public class MainGUI extends JFrame {
     private AdminPalabrasSecretas admin;
     private String palabraFija;
     private int indiceReemplazo = -1;
-    
+
     public MainGUI() {
         super("Juego del Ahorcado");
         admin = new AdminPalabrasSecretas();
@@ -77,14 +110,15 @@ public class MainGUI extends JFrame {
         ((AbstractDocument) txtLetra.getDocument()).setDocumentFilter(new LetterOnlyFilter());
         JButton btnEnviar = new JButton("Enviar Letra");
         txtNuevaPalabra = new JTextField(10);
-        btnAgregar = new JButton("Agregar palabra");  // <-- MOVIDO AQUÍ
+        ((AbstractDocument) txtNuevaPalabra.getDocument()).setDocumentFilter(new MultiLetterOnlyFilter());
+        btnAgregar = new JButton("Agregar palabra");
 
         panelBottom.add(new JLabel("Ingrese letra: "));
         panelBottom.add(txtLetra);
         panelBottom.add(btnEnviar);
         panelBottom.add(new JLabel("Nueva palabra: "));
         panelBottom.add(txtNuevaPalabra);
-        panelBottom.add(btnAgregar);  // <-- MOVIDO AQUÍ
+        panelBottom.add(btnAgregar);
 
         add(panelBottom, BorderLayout.SOUTH);
 
@@ -93,7 +127,7 @@ public class MainGUI extends JFrame {
         btnAzar.addActionListener(e -> iniciarAzar());
         btnVerLista.addActionListener(e -> mostrarListaPalabras());
         btnEnviar.addActionListener(e -> procesarLetra());
-        
+
         JRootPane rootPane = getRootPane();
         InputMap inputMap = rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = rootPane.getActionMap();
